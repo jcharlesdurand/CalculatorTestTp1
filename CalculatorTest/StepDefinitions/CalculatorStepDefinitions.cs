@@ -14,6 +14,11 @@ namespace CalculatorTest.StepDefinitions
         private List<float> _numbers = new List<float>();
         private List<string> _operators = new List<string>();
 
+        //formula V2
+        private string _formula;
+
+        #region Given
+
         [Given("the first number is (.*)")]
         public void GivenTheFirstNumberIs(int number)
         {
@@ -50,6 +55,16 @@ namespace CalculatorTest.StepDefinitions
             }
         }
 
+        [Given(@"the following formula (.*)")]
+        public void GivenTheFollowingFormula(string formula)
+        {
+            _formula = formula;
+        }
+
+        #endregion
+
+        #region When
+
         [When("the two numbers are added")]
         public void WhenTheTwoNumbersAreAdded()
         {
@@ -77,7 +92,6 @@ namespace CalculatorTest.StepDefinitions
             Calculator target = new Calculator();
             _result = target.Sub(_numbers);
         }
-
 
         [When(@"the two numbers are multiplied")]
         public void WhenTheTwoNumbersAreMultiplied()
@@ -114,10 +128,23 @@ namespace CalculatorTest.StepDefinitions
             _result = target.ComputeFormula(_numbers, _operators);
         }
 
+        [When(@"the formula is computed V2")]
+        public void WhenTheFormulaIsComputedV2()
+        {
+            Calculator target = new Calculator();
+            _result = target.ComputeFormula(_formula);
+        }
+
+        #endregion
+
+        #region Then
+
         [Then("the result should be (.*)")]
         public void ThenTheResultShouldBe(string result)
         {
             _result.Should().Be(result);
         }
+
+        #endregion
     }
 }

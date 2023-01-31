@@ -83,7 +83,7 @@ Scenario: Divide N numbers, with divide by zero
 
 #formula
 
-Scenario: Calculate formula with N numbers, whitout priority, ex: 10*2+5-4
+Scenario: Calculate formula with N numbers, whitout priority, ex: 10*2+5-4/2
 Given the following formula
 | operators | numbers |
 |           | 10      |
@@ -103,4 +103,16 @@ Given the following formula
 | -         | 4       |
 | /         | 0       |
 When the formula is computed
+Then the result should be Cannot divide by zero
+
+#formula v2
+
+Scenario: Calculate formula V2 with N numbers, whitout priority, ex: 10*2+5-4/2 
+Given the following formula 10*2+5-4/2
+When the formula is computed V2
+Then the result should be 10.5
+
+Scenario: Calculate formula V2 with N numbers, whitout priority, with division by 0
+Given the following formula 10*2+5-4/0
+When the formula is computed V2
 Then the result should be Cannot divide by zero

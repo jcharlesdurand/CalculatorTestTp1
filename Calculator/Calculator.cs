@@ -1,4 +1,7 @@
-﻿namespace CalculatorLib
+﻿using System.Linq.Expressions;
+using System.Text.RegularExpressions;
+
+namespace CalculatorLib
 {
     public class Calculator
     {
@@ -99,6 +102,28 @@
             }
 
             return result;
+        }
+
+        public string ComputeFormula(string formula)
+        {
+            List<float> numbers = new List<float>();
+            List<string> operators = new List<string>();
+
+            string pattern = @"(\d+|\+|-|\*|/)";
+            MatchCollection matches = Regex.Matches(formula, pattern);
+            foreach (Match match in matches)
+            {
+                if (float.TryParse(match.Value, out float number))
+                {
+                    numbers.Add(number);
+                }
+                else
+                {
+                    operators.Add(match.Value.ToString());
+                }
+            }
+
+            return this.ComputeFormula(numbers, operators);
         }
     }
 }
